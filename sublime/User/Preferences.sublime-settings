@@ -1,0 +1,34 @@
+{
+	"auto_complete_commit_on_tab": true,
+	"color_scheme": "Packages/User/Monokai (Flake8Lint).tmTheme",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 9,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"AdvancedNewFile",
+		"Anaconda",
+		"BracketHighlighter",
+		"Browser Integration",
+		"Djaneiro",
+		"Django",
+		"JavaScript Completions",
+		"JavaScript Refactor",
+		"LESS",
+		"Perforce",
+		"Pretty JSON",
+		"Python Breakpoints",
+		"Scheme",
+		"SublimeCodeIntel",
+		"Vintage"
+	],
+	"line_padding_bottom": 0,
+	"line_padding_top": 0,
+	"rulers":
+	[
+		120
+	],
+	"translate_tabs_to_spaces": true,
+	"use_simple_full_screen": true
+}
