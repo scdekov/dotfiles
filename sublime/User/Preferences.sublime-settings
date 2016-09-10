@@ -7,20 +7,6 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
-		"AdvancedNewFile",
-		"Anaconda",
-		"BracketHighlighter",
-		"Browser Integration",
-		"Djaneiro",
-		"Django",
-		"JavaScript Completions",
-		"JavaScript Refactor",
-		"LESS",
-		"Perforce",
-		"Pretty JSON",
-		"Python Breakpoints",
-		"Scheme",
-		"SublimeCodeIntel",
 		"Vintage"
 	],
 	"line_padding_bottom": 0,
