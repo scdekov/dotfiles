@@ -25,7 +25,6 @@ call vundle#end()
 
 execute pathogen#infect()
 
-filetype plugin indent on
 filetype plugin on
 
 set omnifunc=syntaxcomplete#Complete
@@ -72,7 +71,7 @@ filetype plugin indent on
 
 nmap     <C-F>f <Plug>CtrlSFPrompt
 :imap <C-Space> <C-X><C-O>
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap ; :
 vmap Q gq
 nmap Q gqap
@@ -87,6 +86,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 syntax enable
 syntax on
+
 
 let g:airline#extensions#tmuxline#enabled = 0
 let g:tmuxline_theme='molokai'
