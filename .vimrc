@@ -20,6 +20,9 @@ Plugin 'dyng/ctrlsf.vim'
 Plugin 'tomasr/molokai'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'pangloss/vim-javascript'
+Plugin 'nfvs/vim-perforce'
+
 
 call vundle#end()
 
@@ -33,10 +36,11 @@ set autoindent
 set clipboard=unnamed
 set nowrap
 set copyindent
+set relativenumber
 set number
+set showmatch
 set shiftwidth=4
 set shiftround
-set showmatch 
 set ignorecase
 set smartcase
 set smarttab
@@ -69,7 +73,6 @@ let tabstop=4
 
 filetype plugin indent on
 
-nmap     <C-F>f <Plug>CtrlSFPrompt
 :imap <C-Space> <C-X><C-O>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap ; :
@@ -125,3 +128,4 @@ let g:molokai_original=1
 let g:rehash256=1
 set t_Co=256
 colorscheme molokai
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
