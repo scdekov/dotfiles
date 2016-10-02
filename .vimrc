@@ -20,6 +20,7 @@ Plugin 'dyng/ctrlsf.vim'
 Plugin 'tomasr/molokai'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 
@@ -33,6 +34,7 @@ set autoindent
 set clipboard=unnamed
 set nowrap
 set copyindent
+set relativenumber
 set number
 set shiftwidth=4
 set shiftround
