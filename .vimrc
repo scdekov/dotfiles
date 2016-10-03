@@ -128,4 +128,10 @@ let g:molokai_original=1
 let g:rehash256=1
 set t_Co=256
 colorscheme molokai
+
+"colors of matched bracket
 hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+"Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>"
