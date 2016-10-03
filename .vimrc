@@ -20,9 +20,9 @@ Plugin 'dyng/ctrlsf.vim'
 Plugin 'tomasr/molokai'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'pangloss/vim-javascript'
 Plugin 'nfvs/vim-perforce'
-
 
 call vundle#end()
 
