@@ -26,6 +26,9 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'python-mode/python-mode'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
+Plugin 'calebsmith/vim-lambdify'
 
 call vundle#end()
 
@@ -36,13 +39,14 @@ filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
 set autoindent
-set clipboard=unnamed
 set nowrap
 set copyindent
 set relativenumber
 set number
 set showmatch
 set shiftwidth=4
+autocmd FileType less set shiftwidth=2
+autocmd FileType pyhton set sts=4
 set shiftround
 set ignorecase
 set smartcase
@@ -72,7 +76,10 @@ set mouse=a
 set laststatus=2
 set fillchars+=stl:\ ,stlnc:\
 let tabstop=4
+autocmd filetype less let tabstop=2
 set linebreak showbreak=+
+set bg=dark
+set colorcolumn=120
 
 " highlight current line
 set cursorline
@@ -143,6 +150,10 @@ filetype plugin indent on
 let mapleader = ","
 
 
+" Enable folding with the spacebar
+nnoremap <space> za
+
+
 " map sorting to leader s
 vnoremap <Leader>s :sort<CR>
 
@@ -153,11 +164,12 @@ vnoremap > >gv
 
 :imap <C-Space> <C-X><C-O>
 nnoremap <C-t> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize=60
+let NERDTreeIgnore = ['\.pyc$']
 nnoremap ; :
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+
+" Moving between splits
+nmap <C-n> <C-w>w
 nmap <silent> ,/ :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
@@ -215,32 +227,36 @@ let g:multi_cursor_quit_key='<Esc>'
 " You complete me plugin
 "let g:ycm_python_binary_path = '/home/svetlio/Projects/VW/venvcustomers/bin/python'
 "nmap <C-g> :YcmCompleter GoTo<CR>
+autocmd CompleteDone * pclose
 
 
 " Python mode plugin
-let g:pymode_rope_goto_definition_bind = "<C-g>"
-
-
-
-"colors of matched bracket
-hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
-
-"Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>"
-
-"ruler line
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%121v.\+/
-
-
-"Linting
 let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
 "" Auto check on save
 let g:pymode_lint_on_write = 1
 autocmd BufWritePost *.py call Flake8()
-let g:pymode_lint_ignore = "E501,E126,E127,E128,W"
+let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,W"
+let g:pymode_rope_goto_definition_bind = "<C-g>"
+let g:syntastic_python_pylint_post_args="--max-line-length=120"
+nmap <C-j> ]M
+nmap <C-k> [M
+nmap <C-h> [C
+nmap <C-l> ]C
+
+
+"colors of matched bracket
+hi MatchParen cterm=bold ctermbg=none ctermfg=magenta
+
+
+"Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>"
+
+
+"ruler line
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%121v.\+/
 
 
 "Perforce
@@ -253,3 +269,17 @@ vnoremap <S-Tab> <
 
 " CtrlSF
 nmap <C-F>f <Plug>CtrlSFPrompt
+
+
+" vim session
+let g:session_autosave = 'no'
+
+
+" set ctrlp working directory to a(the directory of the current working file)
+" and r (the nearest ancestor of the current file that contains .git, .hg,
+" .svn, .bzr)
+let g:ctrlp_working_path_mode = 'ra'
+
+
+" add mapping for pdb
+nmap dbg oimport pdb;pdb.set_trace()<Esc>
