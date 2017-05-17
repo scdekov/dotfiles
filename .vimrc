@@ -49,7 +49,7 @@ autocmd FileType less set shiftwidth=2
 autocmd FileType pyhton set sts=4
 set shiftround
 set ignorecase
-set smartcase
+"set smartcase
 set smarttab
 set hlsearch
 set incsearch
@@ -166,6 +166,7 @@ vnoremap > >gv
 nnoremap <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=60
 let NERDTreeIgnore = ['\.pyc$']
+let g:NERDTreeChDirMode = 2
 nnoremap ; :
 
 " Moving between splits
@@ -236,7 +237,7 @@ let g:pymode_lint_checker = "pyflakes,pep8"
 "" Auto check on save
 let g:pymode_lint_on_write = 1
 autocmd BufWritePost *.py call Flake8()
-let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,W"
+let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,F841,E231,E702"
 let g:pymode_rope_goto_definition_bind = "<C-g>"
 let g:syntastic_python_pylint_post_args="--max-line-length=120"
 nmap <C-j> ]M
@@ -278,7 +279,7 @@ let g:session_autosave = 'no'
 " set ctrlp working directory to a(the directory of the current working file)
 " and r (the nearest ancestor of the current file that contains .git, .hg,
 " .svn, .bzr)
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'rw'
 
 
 " add mapping for pdb

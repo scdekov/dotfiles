@@ -7,4 +7,6 @@
         ]
     },
     { "keys": ["ctrl+alt+n"], "command": "advanced_new_file_new"},
+    { "keys": ["ctrl+up"], "command": "scroll_lines", "args": {"amount": 10.0 } },
+    { "keys": ["ctrl+down"], "command": "scroll_lines", "args": {"amount": -10.0 } },
 ]
