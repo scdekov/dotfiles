@@ -29,6 +29,7 @@ Plugin 'python-mode/python-mode'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 Plugin 'calebsmith/vim-lambdify'
+Plugin 'janko-m/vim-test'
 
 call vundle#end()
 
@@ -82,10 +83,10 @@ set bg=dark
 set colorcolumn=120
 
 " highlight current line
-set cursorline
-set cmdheight=1
-set showtabline=2
-set display+=lastline
+"set cursorline
+"set cmdheight=1
+"set showtabline=2
+"set display+=lastline
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -196,8 +197,10 @@ let g:airline_theme='molokai'
 
 
 colorscheme solarized
+let g:solarized_termcolors=256
 set background=dark
-set t_Co=256
+"set t_Co=256
+"set term=screen-256color
 
 
 if !exists('g:airline_symbols')
@@ -233,10 +236,8 @@ autocmd CompleteDone * pclose
 
 " Python mode plugin
 let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
-"" Auto check on save
+let g:pymode_lint_checker = "pep8"
 let g:pymode_lint_on_write = 1
-autocmd BufWritePost *.py call Flake8()
 let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,F841,E231,E702"
 let g:pymode_rope_goto_definition_bind = "<C-g>"
 let g:syntastic_python_pylint_post_args="--max-line-length=120"
@@ -244,6 +245,13 @@ nmap <C-j> ]M
 nmap <C-k> [M
 nmap <C-h> [C
 nmap <C-l> ]C
+
+
+" Flake8
+let g:flake8_show_in_gutter = 1
+"let g:flake8_show_in_file = 1
+"" Auto check on save
+autocmd BufWritePre *.py call Flake8()
 
 
 "colors of matched bracket
@@ -282,5 +290,12 @@ let g:session_autosave = 'no'
 let g:ctrlp_working_path_mode = 'rw'
 
 
+" stop annoying flashing on esc
+set noeb vb t_vb=
+
+
 " add mapping for pdb
 nmap dbg oimport pdb;pdb.set_trace()<Esc>
+
+
+let g:ctrlsf_ackprg = 'ack-grep'
