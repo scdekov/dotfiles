@@ -17,7 +17,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
-"Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'pangloss/vim-javascript'
 Plugin 'nfvs/vim-perforce'
@@ -30,6 +30,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 Plugin 'calebsmith/vim-lambdify'
 Plugin 'janko-m/vim-test'
+Plugin 'tpope/vim-surround'
 
 call vundle#end()
 
@@ -48,6 +49,7 @@ set showmatch
 set shiftwidth=4
 autocmd FileType less set shiftwidth=2
 autocmd FileType pyhton set sts=4
+autocmd FileType javascript set sts=4
 set shiftround
 set ignorecase
 "set smartcase
@@ -196,11 +198,11 @@ let g:airline#extensions#branch#enabled=1
 let g:airline_theme='molokai'
 
 
-colorscheme solarized
+set t_Co=256
 let g:solarized_termcolors=256
 set background=dark
-"set t_Co=256
-"set term=screen-256color
+colorscheme solarized
+call togglebg#map("<F5>")
 
 
 if !exists('g:airline_symbols')
@@ -229,9 +231,9 @@ let g:multi_cursor_quit_key='<Esc>'
 
 
 " You complete me plugin
-"let g:ycm_python_binary_path = '/home/svetlio/Projects/VW/venvcustomers/bin/python'
-"nmap <C-g> :YcmCompleter GoTo<CR>
+nmap <C-g> :YcmCompleter GoTo<CR>
 autocmd CompleteDone * pclose
+let g:ycm_goto_buffer_command='horizontal-split'
 
 
 " Python mode plugin
@@ -239,7 +241,8 @@ let g:pymode_lint = 1
 let g:pymode_lint_checker = "pep8"
 let g:pymode_lint_on_write = 1
 let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,F841,E231,E702"
-let g:pymode_rope_goto_definition_bind = "<C-g>"
+"let g:pymode_rope_goto_definition_bind = "<C-g>"
+let g:pymode_doc = 0
 let g:syntastic_python_pylint_post_args="--max-line-length=120"
 nmap <C-j> ]M
 nmap <C-k> [M
@@ -252,6 +255,11 @@ let g:flake8_show_in_gutter = 1
 "let g:flake8_show_in_file = 1
 "" Auto check on save
 autocmd BufWritePre *.py call Flake8()
+
+
+" GitGutter
+set updatetime=250
+let g:gitgutter_highlight_lines = 1
 
 
 "colors of matched bracket
@@ -295,7 +303,20 @@ set noeb vb t_vb=
 
 
 " add mapping for pdb
-nmap dbg oimport pdb;pdb.set_trace()<Esc>
+nmap dbg oimport ipdb;ipdb.set_trace()<Esc>
 
 
+" required for ctrl f f plugin
 let g:ctrlsf_ackprg = 'ack-grep'
+
+
+" vim-test plugin
+let g:test#python#pytest#file_pattern = '.*test.*'
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+
+
+" used for vim-surround plugin
+vmap s S
+
+map <F3> :set spell!<CR>
