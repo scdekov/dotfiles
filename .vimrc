@@ -174,7 +174,7 @@ vnoremap > >gv
 :imap <C-Space> <C-X><C-O>
 nnoremap <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=60
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeChDirMode = 2
 nnoremap ; :
 
