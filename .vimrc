@@ -19,7 +19,7 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'pangloss/vim-javascript'
+"Plugin 'pangloss/vim-javascript'
 Plugin 'nfvs/vim-perforce'
 Plugin 'nvie/vim-flake8'
 Plugin 'Valloric/YouCompleteMe'
@@ -37,13 +37,13 @@ call vundle#end()
 execute pathogen#infect()
 
 filetype plugin on
+syntax on
 
 set omnifunc=syntaxcomplete#Complete
 
 set autoindent
 set nowrap
 set copyindent
-set relativenumber
 set number
 set showmatch
 set shiftwidth=4
@@ -83,12 +83,10 @@ autocmd filetype less let tabstop=2
 set linebreak showbreak=+
 set bg=dark
 set colorcolumn=120
+set spell
 
 " highlight current line
-"set cursorline
-"set cmdheight=1
-"set showtabline=2
-"set display+=lastline
+set cursorline
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -110,31 +108,24 @@ if exists("&undodir")
     set undolevels=500
     set undoreload=500
 endif
-" }}}
-" Cursorline {{{
-" Only show cursorline in the current window and in normal mode.
 
+" Cursorline
+" Only show cursorline in the current window and in normal mode.
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
     au WinEnter,InsertLeave * set cursorline
 augroup END
 
-" }}}
-" Trailing whitespace {{{
+" Trailing whitespace
 " Only shown when not in insert mode so I don't go insane.
-
 augroup trailing
     au!
     au InsertEnter * :set listchars-=trail:.
 augroup END
 
-" }}}
-" Wildmenu completion {{{
-
 " make tab completion for files/buffers act like bash
 set wildmenu
-
 
 " Make sure Vim returns to the same line when you reopen a file.
 " Thanks, Amit
@@ -145,6 +136,21 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
+
+" Choose '^' or '0' depending on the cursor position.
+function! CleverJumpFirst()
+  let l:before = getline('.')[:col('.') - 1]
+  if l:before =~ '^\s\+\S$'
+    return '0'
+  endif
+  return '^'
+endfunction
+nnoremap <expr> 0 CleverJumpFirst()
+
+
+" Start scrolling when you reach three lines before the end of the screen.
+" Helps with the neck pain.
+set scrolloff=3
 
 
 filetype plugin indent on
@@ -178,15 +184,8 @@ nmap <silent> ,/ :nohlsearch<CR>
 cmap w!! w !sudo tee % >/dev/null
 
 
-" moving around tabs
-noremap tn :tabnew<Space>
-noremap th :tabprev<CR>
-nnoremap tl :tabnext<CR>
-
 " NERDTreeCommenter
 nmap <C-/> <Plug>NERDComToggleComment
-
-syntax on
 
 
 let g:airline#extensions#tmuxline#enabled = 0
@@ -237,29 +236,27 @@ let g:ycm_goto_buffer_command='horizontal-split'
 
 
 " Python mode plugin
-let g:pymode_lint = 1
-let g:pymode_lint_checker = "pep8"
-let g:pymode_lint_on_write = 1
-let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,F841,E231,E702"
-"let g:pymode_rope_goto_definition_bind = "<C-g>"
-let g:pymode_doc = 0
-let g:syntastic_python_pylint_post_args="--max-line-length=120"
+"let g:pymode_rope = 0
+let g:pymode_lint = 0
+"let g:pymode_lint_checkers=['pep8']
+"let g:pymode_lint_on_write = 1
+let g:pymode_rope = 0
+"let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,F841,E231,E702"
+let g:pymode_rope_goto_definition_bind = "<C-g>"
+let g:pymode_options_max_line_length = 120
 nmap <C-j> ]M
 nmap <C-k> [M
 nmap <C-h> [C
 nmap <C-l> ]C
 
-
 " Flake8
 let g:flake8_show_in_gutter = 1
-"let g:flake8_show_in_file = 1
+let g:flake8_show_in_file = 1
 "" Auto check on save
 autocmd BufWritePre *.py call Flake8()
 
-
 " GitGutter
 set updatetime=250
-let g:gitgutter_highlight_lines = 1
 
 
 "colors of matched bracket
@@ -285,7 +282,10 @@ vnoremap <S-Tab> <
 
 
 " CtrlSF
-nmap <C-F>f <Plug>CtrlSFPrompt
+nmap <C-F>f <Plug>CtrlSFPrompt-ignoredir "venv" -R 
+let g:ctrlsf_ackprg = 'ack'
+let g:ctrlsf_extra_backend_args = {'ack': '--ignore-dir={.tox,.git}'}
+let g:ctrlsf_auto_close = 0
 
 
 " vim session
@@ -296,6 +296,7 @@ let g:session_autosave = 'no'
 " and r (the nearest ancestor of the current file that contains .git, .hg,
 " .svn, .bzr)
 let g:ctrlp_working_path_mode = 'rw'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|tox)$'
 
 
 " stop annoying flashing on esc
@@ -304,10 +305,6 @@ set noeb vb t_vb=
 
 " add mapping for pdb
 nmap dbg oimport ipdb;ipdb.set_trace()<Esc>
-
-
-" required for ctrl f f plugin
-let g:ctrlsf_ackprg = 'ack-grep'
 
 
 " vim-test plugin

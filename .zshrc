@@ -32,7 +32,7 @@ ZSH_THEME="bira"
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git django celery chucknorris jira pip python supervisor vagrant web-search sudo vi-mode)
+plugins=(git django celery chucknorris jira pip python supervisor vagrant web-search sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,9 +80,14 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+
+. ~/.bash_functions.sh
+. ~/.bash_aliases
+
+. ~/work/.conf
+. ~/work/aliases
+
+alias reload='source ~/.zshrc'
 
 export JIRA_URL="https://jira.vectorworks.net/";
 
