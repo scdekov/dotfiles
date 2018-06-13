@@ -21,7 +21,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'pangloss/vim-javascript'
 Plugin 'nfvs/vim-perforce'
-Plugin 'nvie/vim-flake8'
+"Plugin 'nvie/vim-flake8'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jmcantrell/vim-virtualenv'
@@ -176,6 +176,7 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=60
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeChDirMode = 2
+let g:NERDTreeQuitOnOpen = 1
 nnoremap ; :
 
 " Moving between splits
@@ -236,24 +237,35 @@ let g:ycm_goto_buffer_command='horizontal-split'
 
 
 " Python mode plugin
-"let g:pymode_rope = 0
-let g:pymode_lint = 0
-"let g:pymode_lint_checkers=['pep8']
-"let g:pymode_lint_on_write = 1
 let g:pymode_rope = 0
-"let g:pymode_lint_ignore = "E501,E126,E127,E128,E221,F841,E231,E702"
-let g:pymode_rope_goto_definition_bind = "<C-g>"
+
+" lining
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_ignore = "E126,E127,E128,W,C901"
 let g:pymode_options_max_line_length = 120
+
+let g:pymode_rope_goto_definition_bind = "<C-g>"
+let g:pymode_virtualenv = 1
+let g:pymode_breakpoint = 0
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+
 nmap <C-j> ]M
 nmap <C-k> [M
 nmap <C-h> [C
 nmap <C-l> ]C
 
 " Flake8
-let g:flake8_show_in_gutter = 1
-let g:flake8_show_in_file = 1
-"" Auto check on save
-autocmd BufWritePre *.py call Flake8()
+"let g:flake8_show_in_gutter = 1
+"let g:flake8_show_in_file = 1
+""" Auto check on save
+"autocmd BufWritePre *.py call Flake8()
 
 " GitGutter
 set updatetime=250
@@ -282,9 +294,9 @@ vnoremap <S-Tab> <
 
 
 " CtrlSF
-nmap <C-F>f <Plug>CtrlSFPrompt-ignoredir "venv" -R 
-let g:ctrlsf_ackprg = 'ack'
-let g:ctrlsf_extra_backend_args = {'ack': '--ignore-dir={.tox,.git}'}
+nmap <C-F>f <Plug>CtrlSFPrompt
+let g:ctrlsf_ackprg = '/usr/local/bin/ag'
+let g:ctrlsf_extra_backend_args = {'ag': '-U'}
 let g:ctrlsf_auto_close = 0
 
 
@@ -295,16 +307,14 @@ let g:session_autosave = 'no'
 " set ctrlp working directory to a(the directory of the current working file)
 " and r (the nearest ancestor of the current file that contains .git, .hg,
 " .svn, .bzr)
-let g:ctrlp_working_path_mode = 'rw'
+"let g:ctrlp_working_path_mode = 'rw'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|tox)$'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
 
 
 " stop annoying flashing on esc
 set noeb vb t_vb=
-
-
-" add mapping for pdb
-nmap dbg oimport ipdb;ipdb.set_trace()<Esc>
 
 
 " vim-test plugin
@@ -316,4 +326,6 @@ nmap <silent> <leader>T :TestFile<CR>
 " used for vim-surround plugin
 vmap s S
 
-map <F3> :set spell!<CR>
+
+" add mapping for pdb
+nmap dbg oimport ipdb;ipdb.set_trace()  # NOQA<Esc>
