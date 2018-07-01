@@ -1,0 +1,17 @@
+{
+    // make esc-caps os mapping to work here
+    "keyboard.dispatch": "keyCode",
+
+    "vim.handleKeys": {
+        "<C-w>": false,
+        "<C-t>": false,
+        "<C-f>": false
+    },
+
+    "zenMode.centerLayout": false,
+
+    // python
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--max-line-length=120"],
+    "python.autoComplete.addBrackets": true,
+} 
