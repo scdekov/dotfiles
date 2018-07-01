@@ -37,16 +37,6 @@
         "command": "workbench.action.files.newUntitledFile",
         "when": "!terminalFocus"
     },
-    {
-        "key": "ctrl+n",
-        "command": "workbench.action.terminal.new",
-        "when": "terminalFocus"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "workbench.action.terminal.new",
-        "when": "terminalFocus"
-    },
     { 
         "key": "shift+alt+up",
         "command": "-editor.action.insertCursorAbove",
@@ -147,5 +137,15 @@
         "key": "ctrl+up",
         "command": "-selectPrevSuggestion",
         "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
     }
 ]
